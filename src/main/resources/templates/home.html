@@ -1,0 +1,41 @@
+<head th:replace="~{defaultLayout :: head}">
+</head>
+
+<body>
+
+<div th:replace="~{defaultLayout :: navbar}"></div>
+
+<div class="col-12">
+    <div style="padding: 4rem;">
+
+    <h1>Licenses</h1>
+    <table class="table table-light">
+        <tr class="table-dark">
+            <th></th>
+            <th style="width:  20%"scope="col">Church Name</th>
+            <th style="width:  10%"scope="col">Limit of Churches</th>
+            <th style="width:  10%"scope="col">Expiration Date</th>
+            <th style="width:  50%"scope="col">Token</th>
+            <th style="width:  10%"scope="col"></th>
+        </tr>
+
+        <tr th:each="l : ${licenses}">
+            <th scope="row"></th>
+            <td><span th:text="${l.name}"></span></td>
+            <td><span th:text="${l.limitChurches}"></span></td>
+            <td><span th:text="${#dates.format(l.expirationDate, 'yyyy-MM-dd')}"></span></td>
+            <td><span th:text="${l.token}"></span></td>
+            <td class="buttons ">
+                <a th:href="@{delete/{id}(id=${l.id})}" th:method="delete"
+                   class="btn btn-danger" style="margin-left: 35%;" ><i class="fa fa-trash"></i></a></td>
+        </tr>
+    </table>
+
+    <a href="/form"><button class="btn btn-dark">Create new License</button></a>
+    <a href="/export"><button class="btn btn-dark">Export all Licenses</button></a>
+
+    </div>
+</div>
+</body>
+
+</html>
