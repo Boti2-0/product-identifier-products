@@ -1,34 +1,21 @@
-package com.bestChoice.bet.runner;
+package com.boti.mkdigital.productsidentifier.scheduled;
 
-import com.bestChoice.bet.DTO.ResponseOddLeagueList;
-import com.bestChoice.bet.DTO.ResponseOddMatchList;
-import com.bestChoice.bet.DTO.ResponseOddMaxOddsList;
-import com.bestChoice.bet.feign.client.OddClient;
-import com.bestChoice.bet.service.BookmakerService;
-import com.bestChoice.bet.service.LeagueService;
-import com.bestChoice.bet.service.MatchService;
+
+import com.boti.mkdigital.productsidentifier.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-
 @Component
+@RequiredArgsConstructor
 public class Scheduleds {
 
-    @Autowired
-    private MatchService matchService;
-    @Autowired
-    private BookmakerService bookmakerService;
+    private final ProductService service;
 
-
-    @Scheduled(fixedDelay = 100000000)
-//    @Scheduled(cron = "0 0 12 * * ?")
-    public void getMatchListOfToday() {
-        matchService.updateMatches();
-        bookmakerService.updateBookmakers();
+//    @Scheduled(fixedDelay = 100000000)
+    public void getAllProductsClickBank() throws InterruptedException {
+        service.getAllProducts();
+        service.updateIfCanGoogleAds();
     }
 
 }

@@ -1,15 +1,17 @@
 package com.boti.mkdigital.productsidentifier.DTO;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @Builder
-public class ClickBankMarketPlanceStatsResponse {
+@AllArgsConstructor
+@NoArgsConstructor
+public class ClickBankMarketplaceStatsResponse {
+        @JsonFormat(pattern = "MM-dd-yyyy")
         private LocalDate activateDate;
         private String category;
         private String subCategory;

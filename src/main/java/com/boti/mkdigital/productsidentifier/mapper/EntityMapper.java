@@ -1,4 +1,4 @@
-package tv.snews.ruby.mapper;
+package com.boti.mkdigital.productsidentifier.mapper;
 
 import java.util.List;
 

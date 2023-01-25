@@ -8,31 +8,64 @@
 <div class="col-12">
     <div style="padding: 4rem;">
 
-    <h1>Licenses</h1>
-    <table class="table table-light">
-        <tr class="table-dark">
-            <th></th>
-            <th style="width:  20%"scope="col">Church Name</th>
-            <th style="width:  10%"scope="col">Limit of Churches</th>
-            <th style="width:  10%"scope="col">Expiration Date</th>
-            <th style="width:  50%"scope="col">Token</th>
-            <th style="width:  10%"scope="col"></th>
-        </tr>
+        <div class="row"><h1>Produtos ClickBank</h1> <a href="/export">
+            <button class="btn btn-dark">Export all Licenses</button>
+        </a></div>
 
-        <tr th:each="l : ${licenses}">
-            <th scope="row"></th>
-            <td><span th:text="${l.name}"></span></td>
-            <td><span th:text="${l.limitChurches}"></span></td>
-            <td><span th:text="${#dates.format(l.expirationDate, 'yyyy-MM-dd')}"></span></td>
-            <td><span th:text="${l.token}"></span></td>
-            <td class="buttons ">
-                <a th:href="@{delete/{id}(id=${l.id})}" th:method="delete"
-                   class="btn btn-danger" style="margin-left: 35%;" ><i class="fa fa-trash"></i></a></td>
-        </tr>
-    </table>
+        <table class="table table-light">
+            <tr class="table-dark">
+                <th style="width: 5%" scope="col">site</th>
+                <th style="" scope="col">title</th>
+                <th style="" scope="col">description</th>
+                <th style="" scope="col">url</th>
+                <!--            <th style=""scope="col">activateDate</th>-->
+                <th style="" scope="col">category</th>
+                <th style="" scope="col">subCategory</th>
+                <!--            <th style=""scope="col">initialDollarsPerSale</th>-->
+                <th style="" scope="col">Media $/conversao</th>
+                <th style="width: 5%" scope="col">gravity</th>
+                <!--            <th style=""scope="col">totalRebill</th>-->
+                <!--            <th style=""scope="col">standard</th>-->
+                <!--            <th style=""scope="col">physical</th>-->
+                <th style="width: 5%" scope="col">rebill</th>
+                <th style="width: 5%" scope="col">upsell</th>
+                <th style="" scope="col">Url Afiliados</th>
+            </tr>
 
-    <a href="/form"><button class="btn btn-dark">Create new License</button></a>
-    <a href="/export"><button class="btn btn-dark">Export all Licenses</button></a>
+            <tr th:each="l : ${products}">
+                <td><span th:text="${l.site}"></span></td>
+                <td><span th:text="${l.title}"></span></td>
+                <td><span th:text="${l.description}"></span></td>
+                <td><span th:text="${l.url}"></span></td>
+                <!--            <td><span th:text="${#dates.format(l.activateDate, 'yyyy-MM-dd')}"></span></td>-->
+                <td><span th:text="${l.category}"></span></td>
+                <td><span th:text="${l.subCategory}"></span></td>
+                <!--            <td><span th:text="${l.initialDollarsPerSale}"></span></td>-->
+                <td><span th:text="${l.averageDollarsPerSale}"></span></td>
+                <td><span th:text="${l.gravity}"></span></td>
+                <!--            <td><span th:text="${l.totalRebill}"></span></td>-->
+                <!--            <td><span th:text="${l.standard}"></span></td>-->
+                <!--            <td><span th:text="${l.physical}"></span></td>-->
+                <td><span th:text="${l.rebill}"></span></td>
+                <td><span th:text="${l.upsell}"></span></td>
+                <td><span th:text="${l.affiliateToolsUrl}"></span></td>
+            </tr>
+        </table>
+        <div class="pagination-div">
+    <span th:if="${page.hasPrevious()}">
+        <a th:href="@{/home(page=${pageNumber-1},size=${pageSize})}">Previous</a>
+    </span>
+            <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
+                <span th:if="${pageNumber == i}" class="selected">[[${i}+1]]</span>
+                <span th:unless="${pageNumber == i}">
+             <a th:href="@{/home(page=${i},size=${pageSize})}">[[${i}+1]]</a>
+        </span>
+            </th:block>
+            <span th:if="${page.hasNext()}">
+        <a th:href="@{/home(page=${pageNumber+1},size=${pageSize})}">Next</a>
+    </span>
+        </div>
+
 
     </div>
 </div>

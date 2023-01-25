@@ -1,7 +1,10 @@
 spring:
   active: '@activatedProperties@'
   datasource:
-    url: ${JDBC_DATASOURCE_URL}
+    url: jdbc:postgresql://database-2.cn0tlrtsmlxe.us-east-1.rds.amazonaws.com:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
   jpa:
     open-in-view: false
     properties:
@@ -11,8 +14,8 @@ spring:
     hibernate:
       ddl-auto: update
 
-oddspedia:
-  host: https://oddspedia.com/api
-  path: v1
+clickBank:
+  host: https://api.clickbank.net
+  path: graphql
   service:
-    name: oddspedia
+    name: clickbank

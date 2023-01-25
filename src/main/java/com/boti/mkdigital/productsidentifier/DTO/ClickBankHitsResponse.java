@@ -1,45 +1,21 @@
 package com.boti.mkdigital.productsidentifier.DTO;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @Builder
-public class ClickBankResponse {
+@AllArgsConstructor
+@NoArgsConstructor
+public class ClickBankHitsResponse {
     private String site;
     private String title;
     private String description;
     private boolean favorite;
     private String url;
-//  marketplaceStats": {
-        private LocalDate activateDate;
-        private String category;
-        private String subCategory;
-        private Double initialDollarsPerSale;
-        private Double averageDollarsPerSale;
-        private Double gravity;
-        private Double totalRebill;
-        private boolean de;
-        private boolean en;
-        private boolean es;
-        private boolean fr;
-        private boolean it;
-        private boolean pt;
-        private boolean standard;
-        private boolean physical;
-        private boolean rebill;
-        private boolean upsell;
-        private boolean standardUrlPresent;
-        private boolean mobileEnabled;
-        private boolean whitelistVendor;
-        private boolean cpaVisible;
-        private boolean dollarTrial;
-        private boolean hasAdditionalSiteHoplinks;
-//  },
+    private ClickBankMarketplaceStatsResponse marketplaceStats;
     private String affiliateToolsUrl;
     private String affiliateSupportEmail;
     private String skypeName;

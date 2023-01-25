@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/apostas
-    username: cotas
-    password: cotasApostas
+    url: jdbc:postgresql://localhost:5432/produtosMK
+    username: mkdigital
+    password: mkdigital
     driver-class-name: org.postgresql.Driver
     hikari:
       poolName: Hikari
