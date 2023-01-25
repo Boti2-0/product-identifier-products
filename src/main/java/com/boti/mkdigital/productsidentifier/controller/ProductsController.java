@@ -19,7 +19,7 @@ public class ProductsController {
     private final ProductService service;
 
     @GetMapping("/products")
-    public ResponseEntity<Page<ClickBankProductDTO>> home(@PageableDefault(size = 10) Pageable pageable) {
+    public ResponseEntity<Page<ClickBankProductDTO>> home(@PageableDefault(size = 20) Pageable pageable) {
         Page<ClickBankProductDTO> page = service.getAllProductsAvailableToAdsPageable(pageable);
         return ResponseEntity.ok().body(page);
     }
