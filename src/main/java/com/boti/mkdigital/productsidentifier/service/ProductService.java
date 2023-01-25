@@ -3,7 +3,9 @@ package com.boti.mkdigital.productsidentifier.service;
 import com.boti.mkdigital.productsidentifier.DTO.ClickBankParamsRequest;
 import com.boti.mkdigital.productsidentifier.DTO.ClickBankProductDTO;
 import com.boti.mkdigital.productsidentifier.DTO.ClickBankResponse;
+import com.boti.mkdigital.productsidentifier.domain.Category;
 import com.boti.mkdigital.productsidentifier.domain.Product;
+import com.boti.mkdigital.productsidentifier.domain.Subcategory;
 import com.boti.mkdigital.productsidentifier.feign.client.ClickBankClient;
 import com.boti.mkdigital.productsidentifier.mapper.ClickBankProductMapper;
 import com.boti.mkdigital.productsidentifier.repository.CategoryRepository;
@@ -29,6 +31,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -54,7 +57,21 @@ public class ProductService {
             log.info("Baixando produtos do " + offSet + " ao " + call * 50);
             ClickBankResponse callRes = clickBankClient.getProducts(getHitsParams(offSet));
             offSet += 50;
+            callRes.getData().getMarketplaceSearch().getHits().forEach(t -> {
+                String category = t.getMarketplaceStats().getCategory();
+                String subCategory = t.getMarketplaceStats().getSubCategory();
+                checkHaveCategory(category,subCategory);
+            });
             repository.saveAll(callRes.getData().getMarketplaceSearch().getHits().stream().map(Product::new).collect(Collectors.toList()));
+        }
+    }
+
+    private void checkHaveCategory(String s, String subCategory) {
+        Optional<Category> byCategory = categoryRepository.findByCategory(s);
+        Optional<Subcategory> subcategory = subcategoryRepository.findBySubCategory(subCategory);
+        Category category = byCategory.orElseGet(() -> categoryRepository.save(Category.builder().category(s).build()));
+        if(subcategory.isEmpty()){
+            subcategoryRepository.save(Subcategory.builder().subCategory(subCategory).category(category).build());
         }
     }
 
