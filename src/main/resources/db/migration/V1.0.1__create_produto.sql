@@ -1,8 +1,9 @@
+CREATE SEQUENCE public.product_id;
+ALTER TABLE public.product_id OWNER TO mkdigital;
+
 create table produto
 (
-    id                           serial
-        constraint produto_pk
-            primary key,
+    id                           integer NOT NULL DEFAULT nextval('product_id'::regclass),
     site                         varchar,
     title                        varchar,
     description                  text,
@@ -32,6 +33,7 @@ create table produto
     affiliates_tools_url         varchar,
     affiliates_support_email     varchar,
     skype_name                   varchar,
-    can_ads_google               bool
+    can_ads_google               bool,
+    CONSTRAINT pk_produto PRIMARY KEY (id)
 );
 

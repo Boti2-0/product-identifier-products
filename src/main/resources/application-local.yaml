@@ -1,6 +1,11 @@
 spring:
+  boot:
+    admin:
+      client:
+        url: https://localhost:4200
   datasource:
     url: jdbc:postgresql://localhost:5432/produtosMK
+    currentSchema: public
     username: mkdigital
     password: mkdigital
     driver-class-name: org.postgresql.Driver
@@ -12,3 +17,7 @@ spring:
       max-lifetime: 1800000
       maximum-pool-size: 100
       minimum-idle: 10
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    validateMigrationNaming: true

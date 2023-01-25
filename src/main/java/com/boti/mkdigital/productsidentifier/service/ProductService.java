@@ -32,6 +32,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -67,10 +68,11 @@ public class ProductService {
     }
 
     private void checkHaveCategory(String s, String subCategory) {
+        AtomicBoolean hasSub = new AtomicBoolean(false);
         Optional<Category> byCategory = categoryRepository.findByCategory(s);
-        Optional<Subcategory> subcategory = subcategoryRepository.findBySubCategory(subCategory);
+        byCategory.ifPresent(category -> hasSub.set(subcategoryRepository.existsByCategoryIdAndSubCategory(category.getId(), subCategory)));
         Category category = byCategory.orElseGet(() -> categoryRepository.save(Category.builder().category(s).build()));
-        if(subcategory.isEmpty()){
+        if(!hasSub.get()){
             subcategoryRepository.save(Subcategory.builder().subCategory(subCategory).category(category).build());
         }
     }

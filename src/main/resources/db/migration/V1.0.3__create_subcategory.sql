@@ -3,7 +3,7 @@ create sequence public.subcategory_id
 
 create table sub_category
 (
-    id          integer not null nextval('subcategory_id'::regclass),
+    id          integer not null DEFAULT nextval('subcategory_id'::regclass),
     sub_category varchar not null,
     category_id integer,
     CONSTRAINT pk_sub_category_id PRIMARY KEY (id),
