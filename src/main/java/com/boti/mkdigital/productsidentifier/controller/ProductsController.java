@@ -17,7 +17,6 @@ import java.nio.charset.StandardCharsets;
 @RequiredArgsConstructor
 public class ProductsController {
     private final ProductService service;
-
     @GetMapping("/products")
     public ResponseEntity<Page<ClickBankProductDTO>> home(@PageableDefault(size = 20) Pageable pageable) {
         Page<ClickBankProductDTO> page = service.getAllProductsAvailableToAdsPageable(pageable);
