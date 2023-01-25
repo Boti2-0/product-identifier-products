@@ -12,7 +12,7 @@ public class Scheduleds {
 
     private final ProductService service;
 
-//    @Scheduled(fixedDelay = 100000000)
+    @Scheduled(fixedDelay = 100000000)
     public void getAllProductsClickBank() throws InterruptedException {
         service.getAllProducts();
         service.updateIfCanGoogleAds();

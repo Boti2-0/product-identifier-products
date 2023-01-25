@@ -6,7 +6,9 @@ import com.boti.mkdigital.productsidentifier.DTO.ClickBankResponse;
 import com.boti.mkdigital.productsidentifier.domain.Product;
 import com.boti.mkdigital.productsidentifier.feign.client.ClickBankClient;
 import com.boti.mkdigital.productsidentifier.mapper.ClickBankProductMapper;
+import com.boti.mkdigital.productsidentifier.repository.CategoryRepository;
 import com.boti.mkdigital.productsidentifier.repository.ProductRepository;
+import com.boti.mkdigital.productsidentifier.repository.SubcategoryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Cell;
@@ -36,6 +38,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ProductService {
     private final ProductRepository repository;
+    private final CategoryRepository categoryRepository;
+    private final SubcategoryRepository subcategoryRepository;
     private final ClickBankClient clickBankClient;
 
     private final ClickBankProductMapper mapper;
