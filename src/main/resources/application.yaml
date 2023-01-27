@@ -23,3 +23,8 @@ clickBank:
   path: graphql
   service:
     name: clickbank
+uberSuggest:
+  host: https://app.neilpatel.com
+  path: api
+  service:
+    name: neilpatel

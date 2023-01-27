@@ -21,6 +21,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jsoup.Jsoup;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -37,6 +39,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
+import static com.boti.mkdigital.productsidentifier.repository.specs.ProductSpecs.*;
+import static org.springframework.data.domain.Sort.Direction.ASC;
+import static org.springframework.data.domain.Sort.Direction.DESC;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -47,6 +53,8 @@ public class ProductService {
     private final ClickBankClient clickBankClient;
 
     private final ClickBankProductMapper mapper;
+
+
 
     public void getAllProducts() throws InterruptedException {
         repository.deleteAll();
@@ -112,11 +120,20 @@ public class ProductService {
         return params;
     }
 
-    public Page<ClickBankProductDTO> getAllProductsAvailableToAdsPageable(Pageable page) {
-        return repository.findAllByCanAdsOnGoogleOrderByGravityAscAverageDollarsPerSaleDesc(true,page).map(p -> mapper.toDto(p));
+    public Page<ClickBankProductDTO> getAllProductsAvailableToAdsPageable(String name, List<Integer> categoryIds, List<Integer> subCategoryIds, Double gravityInitial, Double gravityFinal, Double avgInitial, Double avgFinal, boolean upsell, boolean rebill, boolean canAdsGoogle, Pageable page) {
+        Specification<Product> spec = Specification.where(canAdsOnGoogle(canAdsGoogle).and(hasUpsell(upsell)).and(hasRebill(rebill)));
+        spec = Objects.nonNull(name)? spec.and(nameLike(name)) : spec;
+        spec = Objects.nonNull(categoryIds)? spec.and(categoryIdsIn(categoryIds)) : spec;
+        spec = Objects.nonNull(subCategoryIds)? spec.and(subCategoryIdsIn(subCategoryIds)) : spec;
+        spec = Objects.nonNull(gravityInitial)? spec.and(gravityGreaterThan(gravityInitial)) : spec;
+        spec = Objects.nonNull(gravityFinal)? spec.and(gravityLessThan(gravityFinal)) : spec;
+        spec = Objects.nonNull(avgInitial)? spec.and(avgGreaterThan(avgInitial)) : spec;
+        spec = Objects.nonNull(avgFinal)? spec.and(avgLessThan(avgFinal)) : spec;
+
+        return repository.findAll(spec,page).map(p -> mapper.toDto(p));
     }
     public List<ClickBankProductDTO> getAllProductsAvailableToAds() {
-        return mapper.toDto(repository.findAllByCanAdsOnGoogleOrderByGravityAscAverageDollarsPerSaleDesc(true));
+        return mapper.toDto(repository.findAll());
     }
 
     public byte[] getFile(List<ClickBankProductDTO> clickBankProductDTOS) throws Exception {
