@@ -1,3 +1,0 @@
-logging:
-  file:
-    name: ${LOGS_FOLDER}/java-aws-rnd-logging-prod.log

@@ -1,8 +1,8 @@
 package com.boti.mkdigital.productsidentifier.repository.specs;
 
 import com.boti.mkdigital.productsidentifier.domain.Category_;
-import com.boti.mkdigital.productsidentifier.domain.Product;
 import com.boti.mkdigital.productsidentifier.domain.Subcategory_;
+import com.boti.mkdigital.productsidentifier.domain.Product;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 

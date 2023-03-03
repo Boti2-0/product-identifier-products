@@ -1,13 +1,13 @@
 package com.boti.mkdigital.productsidentifier.domain;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import com.boti.mkdigital.productsidentifier.DTO.ClickBankHitsResponse;
 import lombok.*;
 
 import java.time.LocalDate;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Getter
 @Setter

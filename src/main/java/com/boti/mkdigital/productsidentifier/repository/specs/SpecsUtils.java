@@ -1,7 +1,7 @@
 package com.boti.mkdigital.productsidentifier.repository.specs;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Expression;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.Expression;
 import java.util.List;
 
 
