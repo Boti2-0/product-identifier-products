@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.nio.charset.StandardCharsets;
@@ -26,12 +27,13 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/products")
 public class ProductsController {
     private final ProductService service;
     private final CategoryService categoryService;
     private final SubcategoryService subcategoryService;
 
-    @GetMapping("/products")
+    @GetMapping("")
     public ResponseEntity<Page<ClickBankProductDTO>> getByParams(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) List<Integer> categoryIds,
