@@ -1,6 +1,6 @@
 package com.boti.mkdigital.productsidentifier.service;
 
-import com.boti.mkdigital.productsidentifier.DTO.ClickBankSubcategoryDTO;
+import com.boti.mkdigital.productsidentifier.DTO.SubcategoryDTO;
 import com.boti.mkdigital.productsidentifier.domain.Subcategory;
 import com.boti.mkdigital.productsidentifier.repository.SubcategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,14 +17,14 @@ public class SubcategoryService {
 
     private final SubcategoryRepository repository;
 
-    public ClickBankSubcategoryDTO getSubcategoryByCategory(Integer categoryId){
+    public SubcategoryDTO getSubcategoryByCategory(Integer categoryId){
         List<Subcategory> subcategories = repository.findSubCategoriesByCategoryId(categoryId);
         if(subcategories.isEmpty()){
             log.warn("[SubcategoryService][getSubcategory]- Not found any subcategory for category id:" + categoryId);
-            return ClickBankSubcategoryDTO.builder().build();
+            return SubcategoryDTO.builder().build();
         }
         List<String> subcategoryList = new ArrayList<>();
         subcategories.forEach(subcategory -> subcategoryList.add(subcategory.getSubCategory()));
-        return ClickBankSubcategoryDTO.builder().subcategories(subcategoryList).build();
+        return SubcategoryDTO.builder().subcategories(subcategoryList).build();
     }
 }

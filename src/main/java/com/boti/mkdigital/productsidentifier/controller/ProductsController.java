@@ -1,29 +1,25 @@
 package com.boti.mkdigital.productsidentifier.controller;
 
-import com.boti.mkdigital.productsidentifier.DTO.ClickBankCategoryDTO;
-import com.boti.mkdigital.productsidentifier.DTO.ClickBankProductDTO;
-import com.boti.mkdigital.productsidentifier.DTO.ClickBankSubcategoryDTO;
+import com.boti.mkdigital.productsidentifier.DTO.CategoryDTO;
+import com.boti.mkdigital.productsidentifier.DTO.ProductDTO;
+import com.boti.mkdigital.productsidentifier.DTO.SubcategoryDTO;
+import com.boti.mkdigital.productsidentifier.mapper.ProductMapper;
 import com.boti.mkdigital.productsidentifier.service.CategoryService;
 import com.boti.mkdigital.productsidentifier.service.ProductService;
 import com.boti.mkdigital.productsidentifier.service.SubcategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.springframework.data.domain.Sort.Direction.ASC;
-import static org.springframework.data.domain.Sort.Direction.DESC;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,9 +28,10 @@ public class ProductsController {
     private final ProductService service;
     private final CategoryService categoryService;
     private final SubcategoryService subcategoryService;
+    private final ProductMapper mapper;
 
     @GetMapping("")
-    public ResponseEntity<Page<ClickBankProductDTO>> getByParams(
+    public ResponseEntity<Page<ProductDTO>> getByParams(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) List<Integer> categoryIds,
             @RequestParam(required = false) List<Integer> subCategoryIds,
@@ -46,7 +43,7 @@ public class ProductsController {
             @RequestParam(defaultValue = "true") boolean rebill,
             @RequestParam(defaultValue = "true") boolean canAdsGoogle,
             @PageableDefault(size = 10, sort = "gravity", direction = ASC) Pageable pageable) {
-        Page<ClickBankProductDTO> page = service.getAllProductsAvailableToAdsPageable(
+        Page<ProductDTO> page = service.getAllProductsAvailableToAdsPageable(
                 name,
                 categoryIds,
                 subCategoryIds,
@@ -62,21 +59,30 @@ public class ProductsController {
     }
 
     @GetMapping("/category")
-    public ResponseEntity<ClickBankCategoryDTO> category() {
+    public ResponseEntity<CategoryDTO> category() {
         return ResponseEntity.ok().body(categoryService.getAllCategory());
     }
 
     @GetMapping("/subcategory")
-    public ResponseEntity<ClickBankSubcategoryDTO> subcategory(@RequestHeader(value = "category_id") Integer categoryId) {
+    public ResponseEntity<SubcategoryDTO> subcategory(@RequestHeader(value = "category_id") Integer categoryId) {
         return ResponseEntity.ok().body(subcategoryService.getSubcategoryByCategory(categoryId));
     }
 
-    @GetMapping("/export")
-    public ResponseEntity exportLicenses() throws Exception {
-        return ResponseEntity
-                .ok()
-                .contentType(new MediaType("text", "csv", StandardCharsets.UTF_8))
-                .body(service.exportLicenses());
+    @PostMapping
+    public ResponseEntity create(@RequestBody ProductDTO productDTO) {
+        service.save(mapper.toEntity(productDTO));
+        return ResponseEntity.ok().build();
     }
 
+    @PutMapping(value = "/beforeUpdate/{marketplace}")
+    public ResponseEntity beforeUpdate(@PathVariable String marketplace) {
+        service.beforeUpdateProducts(marketplace);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping(value = "/afterUpdate/{marketplace}")
+    public ResponseEntity afterUpdate(@PathVariable String marketplace) {
+        service.afterUpdateProducts(marketplace);
+        return ResponseEntity.ok().build();
+    }
 }

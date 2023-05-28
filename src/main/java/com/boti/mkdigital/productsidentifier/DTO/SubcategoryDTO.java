@@ -11,6 +11,6 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClickBankSubcategoryDTO {
+public class SubcategoryDTO {
     private List<String> subcategories;
 }
