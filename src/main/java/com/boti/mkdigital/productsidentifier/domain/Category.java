@@ -31,4 +31,5 @@ public class Category {
     @GeneratedValue(strategy = IDENTITY, generator = "category_seq_gen")
     private Integer id;
     private String category;
+    private String marketplace;
 }

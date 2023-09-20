@@ -1,5 +1,5 @@
 server:
-  port: 0
+  port: 8082
 spring:
   application:
     name: product-identifier-service
@@ -24,21 +24,11 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
   flyway:
     enabled: true
     baseline-on-migrate: true
     validateMigrationNaming: true
-clickBank:
-  host: https://api.clickbank.net
-  path: graphql
-  service:
-    name: clickbank
-uberSuggest:
-  host: https://app.neilpatel.com
-  path: api
-  service:
-    name: neilpatel
 eureka:
   client:
     serviceUrl:

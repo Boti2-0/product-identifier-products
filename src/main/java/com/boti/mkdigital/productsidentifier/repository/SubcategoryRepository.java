@@ -16,4 +16,6 @@ public interface SubcategoryRepository extends CrudRepository<Subcategory, Integ
     Optional<Subcategory> findFirstBySubCategory(String subCategory);
 
     boolean existsByCategoryIdAndSubCategory(Integer id,String subCategory);
+
+    Optional<Subcategory> findByCategoryIdAndSubCategory(Integer id, String subCategory);
 }

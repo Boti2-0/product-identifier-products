@@ -27,14 +27,6 @@ public class ProductSpecs {
         return (root, query, cb) -> root.get(subCategory).get(Subcategory_.ID).in(ids);
     }
 
-    public static Specification<Product> gravityGreaterThan(Double val) {
-        return (root, query, cb) -> cb.greaterThanOrEqualTo(root.get(gravity), val);
-    }
-
-    public static Specification<Product> gravityLessThan(Double val) {
-        return (root, query, cb) -> cb.lessThanOrEqualTo(root.get(gravity), val);
-    }
-
     public static Specification<Product> avgGreaterThan(Double val) {
         return (root, query, cb) -> cb.greaterThanOrEqualTo(root.get(averageDollarsPerSale), val);
     }
@@ -64,7 +56,7 @@ public class ProductSpecs {
     public static Specification<Product> canAdsOnGoogle(boolean value) {
         return (root, query, cb) -> {
             if (value) {
-                return cb.equal(root.get(canAdsOnGoogle), true);
+                return cb.equal(root.get(googleAdsAvailable), true);
             } else
                 return cb.isNotNull(root.get(id));
         };

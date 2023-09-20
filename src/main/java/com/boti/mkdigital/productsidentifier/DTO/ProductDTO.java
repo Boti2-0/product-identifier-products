@@ -9,9 +9,10 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Builder
-public class ClickBankProductDTO {
+public class ProductDTO {
 
     private String site;
+    private String key;
     private String title;
     private String description;
     private String url;
@@ -20,11 +21,13 @@ public class ClickBankProductDTO {
     private String subCategory;
     private Double initialDollarsPerSale;
     private Double averageDollarsPerSale;
-    private Double gravity;
+    private String hanking;
     private Double totalRebill;
     private boolean standard;
     private boolean physical;
     private boolean rebill;
     private boolean upsell;
-    private String affiliateToolsUrl;
+    private String affiliateUrl;
+    private String marketplace;
+    private boolean googleAdsAvailable;
 }

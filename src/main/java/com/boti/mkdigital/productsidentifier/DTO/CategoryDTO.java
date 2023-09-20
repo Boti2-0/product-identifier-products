@@ -1,14 +1,17 @@
 package com.boti.mkdigital.productsidentifier.DTO;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import java.util.List;
 
 @Getter
-@Setter
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-public class DataResponse {
-    private ClickBankMarketplaceSearchResponse marketplaceSearch;
+@AllArgsConstructor
+public class CategoryDTO {
+    private List<String> category;
+
 }
