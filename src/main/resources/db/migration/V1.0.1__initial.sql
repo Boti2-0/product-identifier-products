@@ -47,7 +47,7 @@ create table produto
     physical                     bool,
     upsell                       bool,
     rebill                       bool,
-    affiliates_url               varchar,
+    affiliate_url               varchar,
     google_ads_available         bool,
     valid                        bool,
     marketplace                  varchar,
