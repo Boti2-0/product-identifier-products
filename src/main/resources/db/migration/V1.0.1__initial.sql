@@ -26,7 +26,7 @@ create table sub_category
 );
 
 CREATE SEQUENCE public.product_id;
-ALTER TABLE public.product_id OWNER TO mkdigital;
+ALTER TABLE public.product_id OWNER TO products_identifier;
 
 create table produto
 (
@@ -47,7 +47,7 @@ create table produto
     physical                     bool,
     upsell                       bool,
     rebill                       bool,
-    affiliates_url               varchar,
+    affiliate_url               varchar,
     google_ads_available         bool,
     valid                        bool,
     marketplace                  varchar,

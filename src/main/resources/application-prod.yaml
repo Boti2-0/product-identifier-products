@@ -1,24 +1,19 @@
+logging:
+  file:
+    name: ./logs/log-file.log
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
 server:
   port: 8082
 spring:
-  profiles:
-    default: '@activatedProperties@'
   application:
     name: product-identifier-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/products
-    currentSchema: public
+    url: jdbc:postgresql://auth-service.cn0tlrtsmlxe.us-east-1.rds.amazonaws.com:5432/products
     username: products_identifier
-    password: products_identifier
+    password: bvBb8RMCF9mJZMNEtjxyPqnF7gEYgSncKHQx
     driver-class-name: org.postgresql.Driver
-    hikari:
-      poolName: Hikari
-      auto-commit: false
-      connection-timeout: 30000
-      idle-timeout: 60000
-      max-lifetime: 1800000
-      maximum-pool-size: 100
-      minimum-idle: 10
   jpa:
     open-in-view: false
     properties:
@@ -31,10 +26,20 @@ spring:
     enabled: true
     baseline-on-migrate: true
     validateMigrationNaming: true
+management:
+  endpoint:
+    loggers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 eureka:
   client:
+    registerWithEureka: true
+    fetchRegistry: true
     serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+      defaultZone: ${EUREKA_URI:http://eureka.botisistemas.com.br/eureka}
   instance:
     preferIpAddress: true
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
