@@ -26,7 +26,7 @@ create table sub_category
 );
 
 CREATE SEQUENCE public.product_id;
-ALTER TABLE public.product_id OWNER TO mkdigital;
+ALTER TABLE public.product_id OWNER TO products_identifier;
 
 create table produto
 (
