@@ -42,7 +42,7 @@ public class ProductsController {
             @RequestParam(defaultValue = "true") boolean upsell,
             @RequestParam(defaultValue = "true") boolean rebill,
             @RequestParam(defaultValue = "true") boolean canAdsGoogle,
-            @PageableDefault(size = 10, sort = "gravity", direction = ASC) Pageable pageable) {
+            @PageableDefault(size = 10, sort = "hanking", direction = ASC) Pageable pageable) {
         Page<ProductDTO> page = service.getAllProductsAvailableToAdsPageable(
                 name,
                 categoryIds,
