@@ -11,6 +11,7 @@ import com.boti.mkdigital.productsidentifier.repository.SubcategoryRepository;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -73,9 +74,9 @@ public class ProductService {
 
     public Page<ProductDTO> getAllProductsAvailableToAdsPageable(String name, List<Integer> categoryIds, List<Integer> subCategoryIds, Double gravityInitial, Double gravityFinal, Double avgInitial, Double avgFinal, boolean upsell, boolean rebill, boolean canAdsGoogle, Pageable page) {
         Specification<Product> spec = Specification.where(canAdsOnGoogle(canAdsGoogle).and(hasUpsell(upsell)).and(hasRebill(rebill)));
-        spec = Objects.nonNull(name) ? spec.and(nameLike(name)) : spec;
-        spec = Objects.nonNull(categoryIds) ? spec.and(categoryIdsIn(categoryIds)) : spec;
-        spec = Objects.nonNull(subCategoryIds) ? spec.and(subCategoryIdsIn(subCategoryIds)) : spec;
+        spec = Objects.nonNull(name) && !Strings.isBlank(name)? spec.and(nameLike(name)) : spec;
+        spec = Objects.nonNull(categoryIds) && categoryIds.size() > 0? spec.and(categoryIdsIn(categoryIds)) : spec;
+        spec = Objects.nonNull(subCategoryIds) &&  subCategoryIds.size() > 0? spec.and(subCategoryIdsIn(subCategoryIds)) : spec;
 //        spec = Objects.nonNull(gravityInitial)? spec.and(gravityGreaterThan(gravityInitial)) : spec;
 //        spec = Objects.nonNull(gravityFinal)? spec.and(gravityLessThan(gravityFinal)) : spec;
         spec = Objects.nonNull(avgInitial) ? spec.and(avgGreaterThan(avgInitial)) : spec;
