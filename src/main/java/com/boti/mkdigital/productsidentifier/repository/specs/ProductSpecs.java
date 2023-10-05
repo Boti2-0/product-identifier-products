@@ -19,6 +19,10 @@ public class ProductSpecs {
         return (root, query, cb) -> cb.like(cb.lower(root.get(title)), val);
     }
 
+    public static Specification<Product> rankingEq(String v) {
+        return (root, query, cb) -> cb.equal(root.get(ranking), v);
+    }
+
     public static Specification<Product> categoryIdsIn(List<Integer> ids) {
         return (root, query, cb) -> root.get(category).get(Category_.ID).in(ids);
     }

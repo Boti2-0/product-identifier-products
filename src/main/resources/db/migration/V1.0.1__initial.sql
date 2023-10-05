@@ -41,7 +41,7 @@ create table produto
     sub_category_id              integer,
     initial_dollars_per_sale     double precision,
     average_dollars_per_sale     double precision,
-    hanking                      varchar,
+    ranking                      varchar,
     total_rebill                 double precision,
     standard                     bool,
     physical                     bool,

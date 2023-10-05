@@ -72,9 +72,10 @@ public class ProductService {
 
     }
 
-    public Page<ProductDTO> getAllProductsAvailableToAdsPageable(String name, List<Integer> categoryIds, List<Integer> subCategoryIds, Double gravityInitial, Double gravityFinal, Double avgInitial, Double avgFinal, boolean upsell, boolean rebill, boolean canAdsGoogle, Pageable page) {
+    public Page<ProductDTO> getAllProductsAvailableToAdsPageable(String name, List<Integer> categoryIds, List<Integer> subCategoryIds, String ranking, Double avgInitial, Double avgFinal, boolean upsell, boolean rebill, boolean canAdsGoogle, Pageable page) {
         Specification<Product> spec = Specification.where(canAdsOnGoogle(canAdsGoogle).and(hasUpsell(upsell)).and(hasRebill(rebill)));
         spec = Objects.nonNull(name) && !Strings.isBlank(name)? spec.and(nameLike(name)) : spec;
+        spec = Objects.nonNull(ranking) && !Strings.isBlank(ranking) ? spec.and(rankingEq(ranking)) : spec;
         spec = Objects.nonNull(categoryIds) && categoryIds.size() > 0? spec.and(categoryIdsIn(categoryIds)) : spec;
         spec = Objects.nonNull(subCategoryIds) &&  subCategoryIds.size() > 0? spec.and(subCategoryIdsIn(subCategoryIds)) : spec;
 //        spec = Objects.nonNull(gravityInitial)? spec.and(gravityGreaterThan(gravityInitial)) : spec;

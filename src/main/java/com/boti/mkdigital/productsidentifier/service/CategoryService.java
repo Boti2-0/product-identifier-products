@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -16,11 +17,8 @@ import java.util.List;
 public class CategoryService {
     private final CategoryRepository repository;
 
-    public CategoryDTO getAllCategory() {
-        List<String> categories = new ArrayList<>();
-        Iterable<Category> all = repository.findAll();
-        all.forEach(category -> categories.add(category.getCategory()));
-        return CategoryDTO.builder().category(categories).build();
+    public List<CategoryDTO> getAllCategory() {
+        return repository.findAll().stream().map(c -> CategoryDTO.builder().id(c.getId()).name(c.getCategory()).build()).collect(Collectors.toList());
     }
 
 }

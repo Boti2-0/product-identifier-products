@@ -12,6 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryDTO {
-    private List<String> category;
-
+    private Integer id;
+    private String name;
 }

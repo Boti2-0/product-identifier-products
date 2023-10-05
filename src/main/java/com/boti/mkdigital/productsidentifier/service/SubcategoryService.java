@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -17,14 +18,8 @@ public class SubcategoryService {
 
     private final SubcategoryRepository repository;
 
-    public SubcategoryDTO getSubcategoryByCategory(Integer categoryId){
+    public List<SubcategoryDTO> getSubcategoryByCategory(Integer categoryId){
         List<Subcategory> subcategories = repository.findSubCategoriesByCategoryId(categoryId);
-        if(subcategories.isEmpty()){
-            log.warn("[SubcategoryService][getSubcategory]- Not found any subcategory for category id:" + categoryId);
-            return SubcategoryDTO.builder().build();
-        }
-        List<String> subcategoryList = new ArrayList<>();
-        subcategories.forEach(subcategory -> subcategoryList.add(subcategory.getSubCategory()));
-        return SubcategoryDTO.builder().subcategories(subcategoryList).build();
+return subcategories.stream().map(s -> SubcategoryDTO.builder().id(Math.toIntExact(s.getId())).name(s.getSubCategory()).build()).collect(Collectors.toList());
     }
 }
