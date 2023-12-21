@@ -35,20 +35,18 @@ public class ProductsController {
             @RequestParam(required = false) String name,
             @RequestParam(required = false) List<Integer> categoryIds,
             @RequestParam(required = false) List<Integer> subCategoryIds,
-            @RequestParam(required = false) Double gravityInitial,
-            @RequestParam(required = false) Double gravityFinal,
+            @RequestParam(required = false) String ranking,
             @RequestParam(required = false) Double avgInitial,
             @RequestParam(required = false) Double avgFinal,
             @RequestParam(defaultValue = "true") boolean upsell,
             @RequestParam(defaultValue = "true") boolean rebill,
             @RequestParam(defaultValue = "true") boolean canAdsGoogle,
-            @PageableDefault(size = 10, sort = "gravity", direction = ASC) Pageable pageable) {
+            @PageableDefault(size = 10, sort = "ranking", direction = ASC) Pageable pageable) {
         Page<ProductDTO> page = service.getAllProductsAvailableToAdsPageable(
                 name,
                 categoryIds,
                 subCategoryIds,
-                gravityInitial,
-                gravityFinal,
+                ranking,
                 avgInitial,
                 avgFinal,
                 upsell,
@@ -59,12 +57,12 @@ public class ProductsController {
     }
 
     @GetMapping("/category")
-    public ResponseEntity<CategoryDTO> category() {
+    public ResponseEntity<List<CategoryDTO>> category() {
         return ResponseEntity.ok().body(categoryService.getAllCategory());
     }
 
     @GetMapping("/subcategory")
-    public ResponseEntity<SubcategoryDTO> subcategory(@RequestHeader(value = "category_id") Integer categoryId) {
+    public ResponseEntity<List<SubcategoryDTO>> subcategory(@RequestParam(value = "category_id") Integer categoryId) {
         return ResponseEntity.ok().body(subcategoryService.getSubcategoryByCategory(categoryId));
     }
 

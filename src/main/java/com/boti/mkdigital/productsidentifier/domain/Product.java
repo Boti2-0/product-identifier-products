@@ -34,7 +34,7 @@ public class Product {
     private Subcategory subCategory;
     private Double initialDollarsPerSale;
     private Double averageDollarsPerSale;
-    private String hanking;
+    private String ranking;
     private Double totalRebill;
     private boolean standard;
     private boolean physical;
@@ -51,7 +51,7 @@ public class Product {
         this.activateDate = update.getActivateDate();
         this.initialDollarsPerSale = update.getInitialDollarsPerSale();
         this.averageDollarsPerSale = update.getAverageDollarsPerSale();
-        this.hanking = update.getHanking();
+        this.ranking = update.getRanking();
         this.totalRebill = update.getTotalRebill();
         this.standard = update.isStandard();
         this.physical = update.isRebill();

@@ -12,5 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SubcategoryDTO {
-    private List<String> subcategories;
+    private Integer id;
+    private String name;
 }
