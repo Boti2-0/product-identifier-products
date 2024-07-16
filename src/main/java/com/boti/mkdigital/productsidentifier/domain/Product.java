@@ -21,7 +21,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 public class Product {
     @Id
     @GeneratedValue(strategy = IDENTITY, generator = "product_seq_gen")
-    private Long id;
+    private Integer id;
     private String site;
     private String key;
     private String title;

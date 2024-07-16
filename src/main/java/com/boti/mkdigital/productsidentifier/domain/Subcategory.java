@@ -30,7 +30,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 public class Subcategory {
     @Id
     @GeneratedValue(strategy = IDENTITY, generator = "subcategory_seq_gen")
-    private Long id;
+    private Integer id;
     @ManyToOne
     @JoinColumn(name="category_id")
     private Category category;
