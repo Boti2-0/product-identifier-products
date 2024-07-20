@@ -1,12 +1,12 @@
 server:
-  port: 8082
+  port: 8081
 spring:
   profiles:
     default: '@activatedProperties@'
   application:
     name: product-identifier-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/products
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/products}
     currentSchema: public
     username: products_identifier
     password: products_identifier

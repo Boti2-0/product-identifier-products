@@ -5,7 +5,7 @@ logging:
     org.springframework.cloud.gateway: DEBUG
     reactor.netty.http.client: DEBUG
 server:
-  port: 8082
+  port: 8081
 spring:
   application:
     name: product-identifier-service
