@@ -28,7 +28,7 @@ create table sub_category
 CREATE SEQUENCE public.product_id;
 ALTER TABLE public.product_id OWNER TO products_identifier;
 
-create table produto
+create table product
 (
     id                           integer NOT NULL DEFAULT nextval('product_id'::regclass),
     site                         varchar,
@@ -51,9 +51,9 @@ create table produto
     google_ads_available         bool,
     valid                        bool,
     marketplace                  varchar,
-    CONSTRAINT pk_produto PRIMARY KEY (id),
-    CONSTRAINT produto_category_id_fk FOREIGN KEY (category_id)
+    CONSTRAINT pk_product PRIMARY KEY (id),
+    CONSTRAINT product_category_id_fk FOREIGN KEY (category_id)
         REFERENCES public.category (id),
-    CONSTRAINT produto_subcategory_category_id_fk FOREIGN KEY (sub_category_id)
+    CONSTRAINT product_subcategory_category_id_fk FOREIGN KEY (sub_category_id)
         REFERENCES public.sub_category (id)
 );

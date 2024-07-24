@@ -57,13 +57,13 @@ public class ProductSpecs {
         };
     }
 
-    public static Specification<Product> canAdsOnGoogle(boolean value) {
-        return (root, query, cb) -> {
-            if (value) {
-                return cb.equal(root.get(googleAdsAvailable), true);
-            } else
-                return cb.isNotNull(root.get(id));
-        };
-    }
+//    public static Specification<Product> canAdsOnGoogle(boolean value) {
+//        return (root, query, cb) -> {
+//            if (value) {
+//                return cb.equal(root.get(googleAdsAvailable), true);
+//            } else
+//                return cb.isNotNull(root.get(id));
+//        };
+//    }
 
 }

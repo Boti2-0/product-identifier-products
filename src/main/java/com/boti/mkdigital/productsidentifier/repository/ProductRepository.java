@@ -27,14 +27,14 @@ public interface ProductRepository
 
     @Modifying
     @Query(
-            value = " UPDATE produto SET valid = false WHERE marketplace = :marketplace",
+            value = " UPDATE product SET valid = false WHERE marketplace = :marketplace",
             nativeQuery = true
     )
     void markAsInvalidByMarketplace(String marketplace);
 
     @Modifying
     @Query(
-            value = " delete from produto where valid = false and marketplace = :marketplace",
+            value = " delete from product where valid = false and marketplace = :marketplace",
             nativeQuery = true
     )
     void deleteAllByMarketplaceAndValidIsFalse(String marketplace);

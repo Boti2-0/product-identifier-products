@@ -13,7 +13,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Setter
 @Builder
 @Entity
-@Table(name = "produto")
+@Table(name = "product")
 @SequenceGenerator(name = "product_seq_gen", sequenceName = "product_id", allocationSize = 1)
 @AllArgsConstructor
 @NoArgsConstructor
@@ -43,7 +43,12 @@ public class Product {
     private boolean valid;
     private String affiliateUrl;
     private String marketplace;
-    private boolean googleAdsAvailable;
+
+    @OneToOne
+    @JoinColumn(name = "product_info_id", referencedColumnName = "id")
+    private ProductInfo productInfo;
+
+
 
     public Product applyChanges(Product update){
         this.title = update.getTitle();
@@ -59,7 +64,6 @@ public class Product {
         this.upsell = update.isUpsell();
         this.valid = true;
         this.affiliateUrl = update.getAffiliateUrl();
-        this.googleAdsAvailable = update.isGoogleAdsAvailable();
 
         return this;
     }
